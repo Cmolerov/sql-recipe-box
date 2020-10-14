@@ -27,7 +27,7 @@ SET ROLE 'recipe_box_app';
 -- | updated     | TIMESTAMP    | NOT NULL, DEFAULT CURRENT_TIMESTAMP |
 
 -- YOUR CODE HERE
-CREATE TABLE recipes(
+CREATE TABLE recipes (
     id SERIAL,
     title VARCHAR(200) NOT NULL, 
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -55,12 +55,13 @@ CREATE TABLE recipes(
 -- | recipe_id     | INTEGER     | FK, NOT NULL |
 
 -- YOUR CODE HERE
-CREATE TABLE instructions(
-    id SERIAL PRIMARY KEY,
+CREATE TABLE instructions (
+    id SERIAL,
     specification TEXT NOT NULL,
     list_order INTEGER NOT NULL,
     recipe_id INTEGER NOT NULL,
-    FOREIGN KEY(recipe_id) REFERENCES recipes(id)
+    FOREIGN KEY(recipe_id) REFERENCES recipes(id),
+    PRIMARY KEY (id)
 );
 
 
@@ -81,9 +82,10 @@ CREATE TABLE instructions(
 -- | name        | VARCHAR(20) | NOT NULL    |
 
 -- YOUR CODE HERE
-CREATE TABLE units_of_measure(
-    id SERIAL PRIMARY KEY,
+CREATE TABLE units_of_measure (
+    id SERIAL,
     name VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 
@@ -110,11 +112,11 @@ CREATE TABLE units_of_measure(
 CREATE TABLE ingredients (
     id SERIAL,
     amount NUMERIC(5,2) NOT NULL,
-    unit_of_measure_id INTEGER  NOT NULL,
-    food_stuff VARCHAR(500) NOT NULL
+    unit_of_measure_id INTEGER NOT NULL,
+    food_stuff VARCHAR(500) NOT NULL,
     recipe_id INTEGER NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(unit_of_measure_id) REFERENCES units_of_measure(id)
+    FOREIGN KEY(unit_of_measure_id) REFERENCES units_of_measure(id),
     FOREIGN KEY(recipe_id) REFERENCES recipes(id)
 );
 
